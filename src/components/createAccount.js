@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 export class CreateAccount extends React.Component {
 
@@ -6,70 +7,119 @@ export class CreateAccount extends React.Component {
         super();
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.onChangeName = this.onChangeName.bind(this);
-        this.onChangeDOB = this.onChangeDOB.bind(this);
-        this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangeTitle = this.onChangeTitle.bind(this);
+        this.onChangePrice = this.onChangePrice.bind(this);
+        this.onChangeBrand = this.onChangeBrand.bind(this);
+        this.onChangeType = this.onChangeType.bind(this);
+        this.onChangePicture = this.onChangePicture.bind(this);
         
         this.state = {
-            Name: '',
-            DOB: '',
-            Email: ''
+            Title: '',
+            Price: '',
+            Brand: '',
+            Type: '',
+            Picture: ''
         }
     }
 
-    onChangeName(e) {
+    onChangeTitle(a) {
         this.setState({
-            Name: e.target.value
+            Title: a.target.value
         });
     }
 
-    onChangeDOB(e) {
+    onChangePrice(a) {
         this.setState({
-            DOB: e.target.value
+            Price: a.target.value
         });
     }
 
-    onChangeEmail(e) {
+    onChangeBrand(a) {
         this.setState({
-            Email: e.target.value
+            Brand: a.target.value
         });
     }
 
-    onSubmit(e) {
-        e.preventDefault();
-        alert("Name: " + this.state.Name + " " + this.state.DOB + " " + this.state.Email)
+    onChangeType(a) {
+        this.setState({
+            Type: a.target.value
+        });
+    }
+
+    onChangePicture(a) {
+        this.setState({
+            Picture: a.target.value
+        });
+    }
+
+    onSubmit(a) {
+        a.preventDefault();
+        alert("Title: " + this.state.Title + " " + this.state.Price + " " + this.state.Brand + " "
+         + this.state.Type + " " + this.state.Picture 
+        )
+        const newClothing = {
+            Title:this.state.Title,
+            Price:this.state.Price,
+            Brand:this.state.Brand,
+            Type:this.state.Type,
+            Picture:this.state.Picture
+        }
+        //asynchronous
+        axios.post('http://localhost:4000/api/clothes',newClothing)
+        .then((res)=> {
+            console.log(res);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
     }
     render() {
         return (
             <div className='App'>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Add Account Information: </label>
+                        <label>Add Clothing Item: </label>
                         <input type='text'
                             className='form-control'
-                            value={this.state.Name}
-                            onChange={this.onChangeName}></input>
+                            value={this.state.Title}
+                            onChange={this.onChangeTitle}></input>
                     </div>
 
                     <div className="form-group">
-                        <label>Add dob</label>
-                        <input type='text'
-                            className='form-control'
-                            value={this.state.DOB}
-                            onChange={this.onChangeDOB}></input>
-                    </div>
-
-                    <div className="form-group">
-                        <label>email</label>
+                        <label>Add price for item</label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.Email}
-                            onChange={this.onChangeEmail}></input>
+                            value={this.state.Price}
+                            onChange={this.onChangePrice}></input>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Add Brand</label>
+                        <input type='text'
+                            className='form-control'
+                            value={this.state.Brand}
+                            onChange={this.onChangeBrand}></input>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Add Type of Clothing</label>
+                        <input type="text"
+                            className="form-control"
+                            value={this.state.Type}
+                            onChange={this.onChangeType}></input>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Add image for shopping page</label>
+                        <input type="text"
+                            className="form-control"
+                            value={this.state.Picture}
+                            onChange={this.onChangePicture}></input>
                     </div>
 
                     <div className="form-group">
                         <input type='submit'
-                            value="Add Name"
+                            value="Add Clothing Item"
                             className='btn btn-primary'></input>
                     </div>
                 </form>
