@@ -14,11 +14,11 @@ export class Update extends React.Component {
         this.onChangePicture = this.onChangePicture.bind(this);
         
         this.state = {
-            title: '',
-            price: '',
-            brand: '',
-            type: '',
-            picture: ''
+            Title: '',
+            Price: '',
+            Brand: '',
+            Type: '',
+            Picture: ''
         }
     }
 
@@ -28,20 +28,19 @@ export class Update extends React.Component {
         axios.get('http://localhost:4000/api/clothes/' + this.props.match.params.id)
         .then(response =>{
             this.setState({
-                _id:response.data._id,
+                _id : response.data._id,
                 Title:response.data.title,
-                Price:response.data.price,
-                Brand:response.data.brand,
-                Type:response.data.type,
-                Picture:response.data.picture
+                Price: response.data.price,
+                Brand: response.data.brand,
+                Type: response.data.type,
+                Picture: response.data.picture
             })
         })
-        .catch((error)=>{
+        .catch((error=>{
             console.log(error);
-        });
+        }));
+    }
     
-}
-
     onChangeTitle(a) {
         this.setState({
             Title: a.target.value
@@ -78,19 +77,21 @@ export class Update extends React.Component {
          + this.state.Type + " " + this.state.Picture 
         )
         const newClothing = {
-            title:this.state.Title,
-            price:this.state.Price,
-            brand:this.state.Brand,
-            type:this.state.Type,
-            picture:this.state.Picture,
-            _id:this.state._id
+            Title:this.state.Title,
+            Price:this.state.Price,
+            Brand:this.state.Brand,
+            Type:this.state.Type,
+            Picture:this.state.Picture,
+            _id: this.state._id
         }
 
-       axios.put('http://localhost:4000/api/clothes/' + this.state._id, newClothing)
-       .then(res => {
-           console.log(res.data)
-       })
-       .catch();
+        axios.put('http://localhost:4000/api/clothes/' + this.state._id, newClothing)
+        .then(res =>{
+            console.log(res.data)
+        })
+        .catch((error => {
+            console.log(error);
+        }));
     //     //asynchronous
     //     axios.post('http://localhost:4000/api/clothes',newClothing)
     //     .then((res)=> {
@@ -99,7 +100,7 @@ export class Update extends React.Component {
     //     .catch((err)=>{
     //         console.log(err);
     //     });
-    }
+      }
     render() {
         return (
             <div className='App'>
@@ -146,11 +147,11 @@ export class Update extends React.Component {
 
                     <div className="form-group">
                         <input type='submit'
-                            value="Update/Edit"
+                            value="Edit"
                             className='btn btn-primary'></input>
                     </div>
                 </form>
             </div>
         );
     }
-    }
+}

@@ -5,6 +5,11 @@ import axios from 'axios';
 export class Read extends React.Component {
 
 
+    constructor(){
+        super();
+
+        this.ReloadData = this.ReloadData.bind(this); 
+    }
     state = {
         clothes:
             [/*
@@ -69,11 +74,21 @@ export class Read extends React.Component {
             });
     }
 
+    ReloadData(){
+        axios.get('http://localhost:4000/api/clothes')
+        .then((response) => {
+                this.setState({ clothes: response.data })
+            })
+        .catch((error)=>{
+            console.log(error)
+        });
+    }
+
     render() {
         return (
             //links the clothing item to the apparel
             <div><h1>Mens, Womens and Childrens Clothes</h1>
-                <Apparel clothes={this.state.clothes}></Apparel>
+                <Apparel clothes={this.state.clothes} ReloadData={this.ReloadData}></Apparel>
             </div>
         );
     }

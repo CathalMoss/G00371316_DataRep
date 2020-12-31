@@ -100,6 +100,14 @@ app.put('/api/clothes/:id', (req, res) =>{
     })
 })
 
+app.delete('/api/clothes/:id', (req, res)=>{
+    console.log("Delete Clothing: " + req.params.id);
+
+    ClothesModel.findByIdAndDelete(req.params.id,(err, data)=>{
+        res.send(data);
+    })
+})
+
 app.post('/api/clothes', (req, res)=>{
     console.log("Clothes Received");
     console.log(req.body.Title);

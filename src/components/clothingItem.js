@@ -2,8 +2,27 @@ import React from 'react';
 //imports card as it is used for a nice display
 import Card from 'react-bootstrap/Card';
 import {Link} from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 export class ClothingItem extends React.Component {
+
+    constructor(){
+        super();
+
+        this.DeleteClothing = this.DeleteClothing.bind(this);
+    }
+
+    DeleteClothing(e){
+        e.preventDefault();
+        console.log("Delete: " + this.props.clothes._id);
+
+        axios.delete("http://localhost:4000/api/clothes/" + this.props.clothes._id)
+        .then(()=>{
+            this.props.ReloadData();
+        })
+        .catch();
+    }
 
     render() {
         return (
@@ -24,6 +43,7 @@ export class ClothingItem extends React.Component {
   </Card.Body>
   <Card.Footer className="text-muted">20% Discount</Card.Footer>
   <Link to={"/update/" + this.props.clothes._id} className="btn btn-primary">Update/Edit</Link>
+  <Button variant="danger" onClick={this.DeleteClothing} >Delete</Button>
 </Card>
             </div>
         );
