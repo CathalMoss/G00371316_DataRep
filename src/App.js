@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Read } from './components/read';
 import { CreateAccount } from './components/createAccount';
 import { AccountInfo } from './components/accountInfo';
+import { Update } from './components/update';
 
 
 class App extends Component {
@@ -26,7 +27,6 @@ class App extends Component {
               <Nav.Link href="/womenPage">Women</Nav.Link>
               <Nav.Link href="/childrenPage">Children</Nav.Link>
               <Nav.Link href="/createPage">Create Account</Nav.Link>
-              <Nav.Link href="/accountPage">My Account</Nav.Link>
 
 
             </Nav>
@@ -38,12 +38,13 @@ class App extends Component {
     </Form> */}
           </Navbar>
           <Switch>
-          <Route path='/shoppingPage' component={Read} exact />
+          <Route path='/shoppingPage' component={Read}  />
+          <Route path='/update/:id' component={Update}/>
             <Route path='/mensPage' component={Men} exact />
             <Route path='/womenPage' component={Women} exact />
             <Route path='/childrenPage' component={Children} exact />
-            <Route path='/createPage' component={CreateAccount} exact />
-            <Route path='/accountPage' component={AccountInfo} exact/>
+            <Route path='/createPage' component={CreateAccount}></Route>
+            
           </Switch>
 
 

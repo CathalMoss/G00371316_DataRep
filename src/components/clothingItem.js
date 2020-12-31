@@ -1,6 +1,7 @@
 import React from 'react';
 //imports card as it is used for a nice display
 import Card from 'react-bootstrap/Card';
+import {Link} from 'react-router-dom';
 
 export class ClothingItem extends React.Component {
 
@@ -22,9 +23,9 @@ export class ClothingItem extends React.Component {
     </Card.Text>
   </Card.Body>
   <Card.Footer className="text-muted">20% Discount</Card.Footer>
+  <Link to={"/update/" + this.props.clothes._id} className="btn btn-primary">Update/Edit</Link>
 </Card>
             </div>
-
         );
     }
 }

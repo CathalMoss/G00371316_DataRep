@@ -85,10 +85,21 @@ ClothesModel.find((err,data)=>{
 app.get('/api/clothes/:id', (req,res)=>{
     console.log(req.params.id);
 
-    ClothesModel.findById(req.params.id, (err,data)=>{
+    ClothesModel.findById(req.params.id, (err, data) =>{
         res.json(data);
     })
+}) 
+
+app.put('/api/clothes/:id', (req, res) =>{
+    console.log("Update Clothing Item: " + req.params.id);
+    console.log(req.body);
+
+    ClothesModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
+    (err,data)=>{
+        res.send(data);
+    })
 })
+
 app.post('/api/clothes', (req, res)=>{
     console.log("Clothes Received");
     console.log(req.body.Title);
@@ -105,6 +116,7 @@ app.post('/api/clothes', (req, res)=>{
         Picture:req.body.Picture
     })
 
+    //send a response back so the clothes item doesnt duplicate
     res.send('Item Added');
 })
 // //send up via the body
