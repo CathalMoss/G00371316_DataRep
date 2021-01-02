@@ -87,7 +87,8 @@ export class Read extends React.Component {
     render() {
         return (
             //links the clothing item to the apparel
-            <div><h1>Mens, Womens and Childrens Clothes</h1>
+            <div><h1>Shopping Cart</h1>
+           <b> <p>These are the items you have in your Basket</p></b>
                 <Apparel clothes={this.state.clothes} ReloadData={this.ReloadData}></Apparel>
             </div>
         );

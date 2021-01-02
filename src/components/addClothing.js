@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-export class CreateAccount extends React.Component {
+export class addClothing extends React.Component {
 
     constructor() {
         super();
@@ -76,9 +76,11 @@ export class CreateAccount extends React.Component {
     render() {
         return (
             <div className='App'>
+                <h1>Add Items To Basket</h1>
+                <b><p>Make sure you add all details in correctly for the Shopping Basket</p></b>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Add Clothing Item: </label>
+                        <label>Add Title</label>
                         <input type='text'
                             className='form-control'
                             value={this.state.Title}

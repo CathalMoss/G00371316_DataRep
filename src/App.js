@@ -5,14 +5,12 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { Children } from './components/children';
 import { Women } from './components/women';
 import { Men } from './components/men';
-import { ShoppingCart} from './components/shoppingcart';
 //browserRouter will now be known as Router
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Read } from './components/read';
-import { CreateAccount } from './components/createAccount';
-import { AccountInfo } from './components/accountInfo';
+import { addClothing} from './components/addClothing';
 import { Update } from './components/update';
-
+import { Home } from './components/home';
 
 class App extends Component {
   render() {
@@ -20,15 +18,13 @@ class App extends Component {
       <Router>
         <div className="App">
           <Navbar bg="primary" variant="dark">
-            <Navbar.Brand href="#home">Home</Navbar.Brand>
+            <Navbar.Brand href="/home">Home</Navbar.Brand>
             <Nav className="mr-auto">
-            <Nav.Link href="/shoppingPage">Clothes</Nav.Link>
               <Nav.Link href="/mensPage">Men</Nav.Link>
               <Nav.Link href="/womenPage">Women</Nav.Link>
               <Nav.Link href="/childrenPage">Children</Nav.Link>
-              <Nav.Link href="/createPage">Create Account</Nav.Link>
-
-
+              <Nav.Link href="/addClothing">Add To Basket</Nav.Link>
+              <Nav.Link href="/shoppingPage">Shopping Basket</Nav.Link>
             </Nav>
            {new Date().toLocaleTimeString('en-GB')}
                 / {new Date().toLocaleDateString()}
@@ -38,12 +34,15 @@ class App extends Component {
     </Form> */}
           </Navbar>
           <Switch>
-          <Route path='/shoppingPage' component={Read}  />
-          <Route path='/update/:id' component={Update}/>
+            <Route path='/home' component={ Home} />
+            <Route path='/shoppingPage' component={Read}  />
+            <Route path='/update/:id' component={Update}/>
             <Route path='/mensPage' component={Men} exact />
             <Route path='/womenPage' component={Women} exact />
             <Route path='/childrenPage' component={Children} exact />
-            <Route path='/createPage' component={CreateAccount}></Route>
+            <Route path='/addClothing' component={addClothing}>
+            
+            </Route>
             
           </Switch>
 
