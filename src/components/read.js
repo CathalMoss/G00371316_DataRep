@@ -5,14 +5,14 @@ import axios from 'axios';
 export class Read extends React.Component {
 
 
-    constructor(){
+    constructor() {
         super();
 
-        this.ReloadData = this.ReloadData.bind(this); 
+        this.ReloadData = this.ReloadData.bind(this);
     }
     state = {
         clothes:
-            [/*
+            [/*  List of clothes used for JSON  BLOB
                 {
                              "Title": "Mens Mixed T-Shirt",
                              "Price" : "€50.00",
@@ -50,7 +50,7 @@ export class Read extends React.Component {
                                "Picture" : "https://images.unsplash.com/photo-1603652338913-9d5ee527fc8d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjV8fHQlMjBzaGlydCUyMGtpZHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
                          
                            }*/
-               ]
+            ]
     };
 
     // //the server reading data from the database
@@ -63,32 +63,34 @@ export class Read extends React.Component {
     //             console.log(error)
     //         });
     // }
-      //the server reading data from the database
-      componentDidMount() {
+    //the server reading data from the database
+    componentDidMount() {
         axios.get('http://localhost:4000/api/clothes')
             .then((response) => {
-                    this.setState({ clothes: response.data })
-                })
-            .catch((error)=>{
+                this.setState({ clothes: response.data })
+            })
+            .catch((error) => {
                 console.log(error)
             });
     }
 
-    ReloadData(){
+    //reloads the data
+    ReloadData() {
         axios.get('http://localhost:4000/api/clothes')
-        .then((response) => {
+            .then((response) => {
                 this.setState({ clothes: response.data })
             })
-        .catch((error)=>{
-            console.log(error)
-        });
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
     render() {
         return (
             //links the clothing item to the apparel
             <div><h1>Shopping Cart</h1>
-           <b> <p>These are the items you have in your Basket</p></b>
+                <b> <p>These are the items you have in your Basket</p></b>
+                <b><p>20% Discount to all items </p></b>
                 <Apparel clothes={this.state.clothes} ReloadData={this.ReloadData}></Apparel>
             </div>
         );

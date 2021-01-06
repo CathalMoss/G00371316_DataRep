@@ -7,8 +7,10 @@ const port = 4000
 const bodyParser = require("body-parser");
 const cors = require('cors');
 const mongoose = require('mongoose');
-//const path = require('path');
+const path = require('path');
 
+
+//using cors package
 app.use(cors());
 app.use(function(req,res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -18,8 +20,9 @@ app.use(function(req,res, next) {
     next();
 });
 
-//app.use(express.static(path.join(__dirname, '../build')));
-//app.use('/static', express.static(path.join(__dirname, 'build//static')));
+//configuration for build and staic folders
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('/static', express.static(path.join(__dirname, 'build//static')));
 
 ////parse applications/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
@@ -27,9 +30,11 @@ app.use(bodyParser.urlencoded({extended: false}))
 //parse application/json
 app.use(bodyParser.json())
 
+//link to mongodb
 const myConnectionString = 'mongodb+srv://cathal:admin@cluster0.qrfkd.mongodb.net/clothes?retryWrites=true&w=majority';
 mongoose.connect(myConnectionString, {useNewUrlParser: true});
 
+//define schema
 const Schema = mongoose.Schema;
 
 var clothesSchema = new Schema({
@@ -40,12 +45,13 @@ var clothesSchema = new Schema({
     Picture: String
 })
 
+//link with database, ClothesModel will write to database
 var ClothesModel = mongoose.model("clothes", clothesSchema);
-
 
 //accounts for backend
 app.get('/api/clothes', (req, res)=>{
-// const myclothes = 
+
+    // const myclothes = 
 // [
 //     {
 //                  "Title": "Mens Mixed T-Shirt",
@@ -86,6 +92,7 @@ ClothesModel.find((err,data)=>{
     //     clothes:myclothes});
 });
 
+//use id and find it in database
 app.get('/api/clothes/:id', (req,res)=>{
     console.log(req.params.id);
 
@@ -94,6 +101,7 @@ app.get('/api/clothes/:id', (req,res)=>{
     })
 }) 
 
+//update
 app.put('/api/clothes/:id', (req, res) =>{
     console.log("Update Clothing Item: " + req.params.id);
     console.log(req.body);
@@ -104,6 +112,7 @@ app.put('/api/clothes/:id', (req, res) =>{
     })
 })
 
+//delete
 app.delete('/api/clothes/:id', (req, res)=>{
     console.log("Delete Clothing: " + req.params.id);
 
@@ -112,6 +121,7 @@ app.delete('/api/clothes/:id', (req, res)=>{
     })
 })
 
+//listening to post request
 app.post('/api/clothes', (req, res)=>{
     console.log("Clothes Received");
     console.log(req.body.Title);
@@ -120,6 +130,7 @@ app.post('/api/clothes', (req, res)=>{
     console.log(req.body.Type);
     console.log(req.body.Picture);
 
+    //interacting with ClothesModel
     ClothesModel.create({
         Title:req.body.Title,
         Price:req.body.Price,
@@ -136,9 +147,9 @@ app.post('/api/clothes', (req, res)=>{
 //  res.send('Hello' + req.body.fname + ' ' + req.body.lname)
 // })
 
-//app.get('*', (req,res)=>{
-//    res.sendFile(path.join(__dirname+'/../build/index.html'));
-//})
+app.get('*', (req,res)=>{
+    res.sendFile(path.join(__dirname+'/../build/index.html'));
+})
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
